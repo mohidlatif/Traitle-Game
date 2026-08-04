@@ -1,4 +1,3 @@
-//An object of one or more (couple)
 package src;
 public class Gen{
     private Person mother;
