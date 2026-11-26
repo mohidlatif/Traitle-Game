@@ -39,7 +39,24 @@ public class HeiarchyCreator {
     createHeiarchy(nextCouple, n + 1, nextGen);
     }
 }
+    public boolean checkAscertainment(){
+        for(Generation g: heiarchy.getHeiarchy()){
+            for(Couple c: g.getGeneration()){
+                if((c.getHusband() != null && c.getHusband().isAffected()) || (c.getWife() != null &&c.getWife().isAffected()))
+                    return true;
+            }
+        }
+        return false;
+    }
 
+    public void clearHeiarchy(){
+        heiarchy.getHeiarchy().clear();
+        heiarchy.addGeneration(0, new Generation());
+        heiarchy.addGeneration(1, new Generation());
+        heiarchy.addGeneration(2, new Generation());
+        heiarchy.addGeneration(3, new Generation());
+    }
+    
     private void linkParentChild(Couple parents, ArrayList<Person> children){
         for(int x=0; x<children.size(); x++){
             parents.getHusband().addChild(children.get(x));

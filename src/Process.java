@@ -8,7 +8,7 @@ public class Process {
     public static void main(String[] args) {
         h = new Heiarchy();
         HeiarchyCreator h0 = new HeiarchyCreator();
-        d = new Disease((int)(Math.random()*6) + 1);
+       d = new Disease((int)(Math.random()*6) + 1);
         Person p0 = new Person(Math.random()>=0.5, Math.random()>=0.5, true, d);
         Person p1;
         if(d.getDiseaseType()!=DiseaseType.YL)
@@ -19,12 +19,9 @@ public class Process {
         Gen g = new Gen(couple, d);
 
        	h0.createHeiarchy(couple, 0, g);
-        h = h0.getHeiarchy();
-        Pedigree p = new Pedigree(h);
-        
-        p.evaluateDiseases();
-        while(h.getDiseases().size()>=5 || h.getDiseases().isEmpty()){
-            d = new Disease((int)(Math.random()*6) + 1);
+
+         while(!h0.checkAscertainment()){
+            h0.clearHeiarchy();
             p0 = new Person(Math.random()>=0.5, Math.random()>=0.5, true, d);
             if(d.getDiseaseType()!=DiseaseType.YL)
                 p1 = new Person(Math.random()>=0.5, Math.random()>=0.5, false, d);
@@ -32,12 +29,13 @@ public class Process {
                 p1 = new Person(false,false, false, d);
             couple = new Couple(p0, p1);
             g = new Gen(couple, d);
-            h0 = new HeiarchyCreator();
             h0.createHeiarchy(couple, 0, g);
-            h = h0.getHeiarchy();
-            p = new Pedigree(h);
-            p.evaluateDiseases();
         }
+
+        h = h0.getHeiarchy();
+        Pedigree p = new Pedigree(h);
+        
+        p.evaluateDiseases();
 
         JFrame frame = new JFrame("Traitle");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
