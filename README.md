@@ -28,7 +28,7 @@ If double-clicking the file does not launch the game, open a terminal in the dir
 
 
 
-java -jar Traitle.jar
+`java -jar Traitle.jar`
 
 
 
